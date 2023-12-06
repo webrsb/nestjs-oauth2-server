@@ -3,7 +3,7 @@ import {
     AuthenticateOptions,
     Request as OAuth2Request,
     Response as OAuth2Response,
-} from 'oauth2-server';
+} from '@node-oauth/oauth2-server';
 import { from, Observable } from 'rxjs';
 import { Injectable, CanActivate } from '@nestjs/common';
 
