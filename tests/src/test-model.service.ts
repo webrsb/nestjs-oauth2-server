@@ -7,7 +7,7 @@ import {
     AuthorizationCodeModel,
     RequestAuthenticationModel,
 } from 'oauth2-server';
-import moment = require('moment');
+import * as moment from 'moment';
 import { Inject, Injectable, Optional } from '@nestjs/common';
 
 import {

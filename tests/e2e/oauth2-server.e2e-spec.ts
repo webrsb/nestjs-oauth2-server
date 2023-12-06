@@ -1,4 +1,4 @@
-import request = require('supertest');
+import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TestController } from '../src/test.controller';
 import { HttpStatus, INestApplication } from '@nestjs/common';

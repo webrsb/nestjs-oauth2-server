@@ -15,7 +15,7 @@ import {
     ExecutionContext,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import OAuth2Server = require('oauth2-server');
+import * as OAuth2Server from 'oauth2-server';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 

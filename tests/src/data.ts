@@ -1,4 +1,4 @@
-import moment = require('moment');
+import * as moment from 'moment';
 
 export const CLIENT = {
     id: '12345678',

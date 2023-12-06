@@ -6,7 +6,7 @@ import {
     DynamicModule,
 } from '@nestjs/common';
 import { ServerOptions } from 'oauth2-server';
-import OAuth2Server = require('oauth2-server');
+import * as OAuth2Server from 'oauth2-server';
 
 import {
     OAuth2ServerTokenGuard,
