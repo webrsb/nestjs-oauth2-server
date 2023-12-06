@@ -9,6 +9,7 @@
 !.vscode/extensions.json
 !.vscode/launch.json
 .dev-dependencies
+*.swp
 
 # misc
 npm-debug.log

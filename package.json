@@ -33,8 +33,7 @@
     "test:integration": "jest --config ./tests/jest-e2e.config.json --runInBand",
     "test:cov": "jest --config ./tests/jest-e2e.config.json --runInBand --coverage",
     "prerelease": "npm run build",
-    "release": "dotenv release-it --",
-    "prepare": ".\\.prepare.bat || ./.prepare"
+    "release": "dotenv release-it --"
   },
   "devDependencies": {
     "@commitlint/cli": "16.2.3",
@@ -78,12 +77,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/toondaey/nestjs-oauth2-server/issues"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
   },
   "peerDependencies": {
     "@nestjs/common": "^8.0.0",
