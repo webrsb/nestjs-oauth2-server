@@ -1,13 +1,11 @@
 import {
     Type,
     Module,
-    Global,
     Provider,
     DynamicModule,
 } from '@nestjs/common';
 import { ServerOptions } from '@node-oauth/oauth2-server';
 import * as OAuth2Server from '@node-oauth/oauth2-server';
-
 import {
     OAuth2ServerTokenGuard,
     OAuth2ServerAuthorizationGuard,
@@ -23,11 +21,8 @@ import {
     OAUTH2_SERVER_MODEL_PROVIDER,
     OAUTH2_SERVER_OPTIONS_TOKEN,
 } from './oauth2-server.constants';
-import { ModelProviderModule } from './model-provider.module';
 
-@Global()
 @Module({
-    imports: [ModelProviderModule],
     providers: [
         {
             provide: OAUTH2_SERVER_OPTIONS_TOKEN,
@@ -55,14 +50,20 @@ import { ModelProviderModule } from './model-provider.module';
 })
 export class OAuth2ServerCoreModule {
     static forRoot(
-        options: IOAuth2ServerModuleOptions,
+        options: IOAuth2ServerModuleOptions
     ): DynamicModule {
+        const { model, ...otherOptions } = options;
         return {
             module: OAuth2ServerCoreModule,
+            imports: options.imports || [],
             providers: [
                 {
                     provide: OAUTH2_SERVER_OPTIONS_TOKEN,
-                    useValue: options,
+                    useValue: otherOptions,
+                },
+                {
+                    provide: OAUTH2_SERVER_MODEL_PROVIDER,
+                    useClass: model
                 },
             ],
         };
@@ -71,9 +72,13 @@ export class OAuth2ServerCoreModule {
     static forRootAsync(
         options: IOAuth2ServerModuleAsyncOptions,
     ): DynamicModule {
+        const { model, ...otherOptions } = options;
         return {
             module: OAuth2ServerCoreModule,
-            providers: [...this.createAsyncProviders(options)],
+            providers: [...this.createAsyncProviders(otherOptions), {
+                provide: OAUTH2_SERVER_MODEL_PROVIDER,
+                useClass: model
+            }],
             imports: options.imports || [],
         };
     }

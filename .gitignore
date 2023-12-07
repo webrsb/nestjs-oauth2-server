@@ -10,6 +10,7 @@
 !.vscode/launch.json
 .dev-dependencies
 *.swp
+tags
 
 # misc
 npm-debug.log
