@@ -4,7 +4,6 @@ import { TestController } from '../src/test.controller';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 
 import { TestModule } from '../src/test.module';
-import { TestModelService } from '../src/test-model.service';
 import { ITestExpectedResponses } from '../src/test.interfaces';
 import { DataProviderModule } from '../src/data-provider.module';
 
@@ -21,7 +20,6 @@ describe('e2e', () => {
                 TestModule.withUseClassForRootAsync(),
                 DataProviderModule.register(testResponses as any),
             ],
-            providers: [TestModelService],
         }).compile();
 
         app = module.createNestApplication();
@@ -99,7 +97,7 @@ describe('e2e', () => {
                         authorizationCode: expect.any(String),
                         expiresAt: expect.any(String),
                         redirectUri: expect.any(String),
-                        scope: expect.any(String),
+                        scope: [expect.any(String)],
                         client: {
                             id: expect.anything(),
                             grants: expect.arrayContaining([
@@ -149,7 +147,7 @@ describe('e2e', () => {
                             refreshToken: expect.any(String),
                             accessTokenExpiresAt: expect.any(String),
                             refreshTokenExpiresAt: expect.any(String),
-                            scope: expect.any(String),
+                            scope: [expect.any(String)],
                             client: {
                                 id: expect.anything(),
                                 grants: expect.arrayContaining([

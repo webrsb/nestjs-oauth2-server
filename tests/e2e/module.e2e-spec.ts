@@ -1,19 +1,16 @@
 import * as OAuth2Server from '@node-oauth/oauth2-server';
 import { Test, TestingModule } from '@nestjs/testing';
-import { InternalServerErrorException } from '@nestjs/common';
 
 import { TestModule } from '../src/test.module';
-import { TestModelService } from '../src/test-model.service';
 import { OAUTH2_SERVER } from '../../lib/oauth2-server.constants';
 
 describe('ExampleModule', () => {
     let module: TestingModule;
 
-    describe('register()', () => {
+    describe('forRoot()', () => {
         beforeEach(async () => {
             module = await Test.createTestingModule({
                 imports: [TestModule.withForRoot()],
-                providers: [TestModelService],
             }).compile();
         });
 
@@ -24,28 +21,13 @@ describe('ExampleModule', () => {
         });
     });
 
-    describe('register() to throw when no model is provided', () => {
-        it('should be throw if now model provided', () => {
-            return Test.createTestingModule({
-                imports: [TestModule.withForRoot()],
-            })
-                .compile()
-                .catch(error =>
-                    expect(error).toBeInstanceOf(
-                        InternalServerErrorException,
-                    ),
-                );
-        });
-    });
-
-    describe('registerAsync()', () => {
+    describe('forRootAsync()', () => {
         describe('useFactory()', () => {
             it('should register module', async () => {
                 module = await Test.createTestingModule({
                     imports: [
                         TestModule.withUseFactoryForRootAsync(),
                     ],
-                    providers: [TestModelService],
                 }).compile();
 
                 expect(
@@ -58,7 +40,6 @@ describe('ExampleModule', () => {
             it('should register module', async () => {
                 module = await Test.createTestingModule({
                     imports: [TestModule.withUseClassForRootAsync()],
-                    providers: [TestModelService],
                 }).compile();
 
                 expect(
@@ -73,7 +54,6 @@ describe('ExampleModule', () => {
                     imports: [
                         TestModule.withUseExistingForRootAsync(),
                     ],
-                    providers: [TestModelService],
                 }).compile();
 
                 expect(

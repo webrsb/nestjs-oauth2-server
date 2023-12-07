@@ -1,5 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
-
+import { TestModelService } from './test-model.service';
 import { ExistingModule } from './existing.module';
 import { IOAuth2ServerModuleOptions } from '../../lib';
 import { TestConfigService } from './test-config.service';
@@ -12,7 +12,7 @@ export class TestModule {
             module: TestModule,
             imports: [
                 OAuth2ServerModule.forRoot({
-                    allowEmptyState: true,
+                    model: TestModelService
                 }),
             ],
         };
@@ -23,7 +23,8 @@ export class TestModule {
             module: TestModule,
             imports: [
                 OAuth2ServerModule.forRootAsync({
-                    useFactory: (): IOAuth2ServerModuleOptions => ({}),
+                    useFactory: (): Omit<IOAuth2ServerModuleOptions, 'model'> => ({}),
+                    model: TestModelService
                 }),
             ],
         };
@@ -35,6 +36,7 @@ export class TestModule {
             imports: [
                 OAuth2ServerModule.forRootAsync({
                     useClass: TestConfigService,
+                    model: TestModelService
                 }),
             ],
         };
@@ -47,6 +49,7 @@ export class TestModule {
                 OAuth2ServerModule.forRootAsync({
                     useExisting: TestConfigService,
                     imports: [ExistingModule],
+                    model: TestModelService
                 }),
             ],
         };

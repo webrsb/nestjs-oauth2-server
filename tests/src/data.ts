@@ -17,7 +17,7 @@ export const AUTHORIZATION_CODE = {
     authorizationCode: 'string',
     expiresAt: moment().add(1, 'd').toDate(),
     redirectUri: 'https://example.org',
-    scope: 'string',
+    scope: ['string'],
     client: CLIENT,
     user: {},
 };
@@ -25,7 +25,7 @@ export const AUTHORIZATION_CODE = {
 export const REFRESH_TOKEN = {
     refreshToken: 'string',
     refreshTokenExpiresAt: moment().add(1, 'd').toDate(),
-    scope: 'string',
+    scope: ['string'],
     client: CLIENT,
     user: {},
 };

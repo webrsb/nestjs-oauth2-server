@@ -4,11 +4,15 @@ import {
     IOAuth2ServerModuleOptions,
     IOAuth2ServerOptionsFactory,
 } from '../../lib';
+import { TestModelService } from './test-model.service';
 
 @Injectable()
 export class TestConfigService
-    implements IOAuth2ServerOptionsFactory {
+    implements IOAuth2ServerOptionsFactory
+{
     createOAuth2ServerOptions(): IOAuth2ServerModuleOptions {
-        return {};
+        return {
+            model: TestModelService,
+        };
     }
 }

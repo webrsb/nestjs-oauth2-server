@@ -8,24 +8,23 @@ import {
     RequestAuthenticationModel,
 } from '@node-oauth/oauth2-server';
 import * as moment from 'moment';
-import { Inject, Injectable, Optional } from '@nestjs/common';
-
 import {
     CLIENT,
     ACCESS_TOKEN,
     REFRESH_TOKEN,
     AUTHORIZATION_CODE,
 } from './data';
-import { OAuth2Model } from '../../lib';
 import { RESPONSES } from './test.constants';
 import { ITestExpectedResponses } from './test.interfaces';
+import { Inject, Injectable, Optional } from '@nestjs/common';
 
-@OAuth2Model()
+@Injectable()
 export class TestModelService
     implements
         RequestAuthenticationModel,
         AuthorizationCodeModel,
-        RefreshTokenModel {
+        RefreshTokenModel
+{
     constructor(
         @Optional()
         @Inject(RESPONSES)

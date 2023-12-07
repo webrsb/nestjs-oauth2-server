@@ -3,6 +3,7 @@ import {
     Module,
     Provider,
     DynamicModule,
+    Global,
 } from '@nestjs/common';
 import { ServerOptions } from '@node-oauth/oauth2-server';
 import * as OAuth2Server from '@node-oauth/oauth2-server';
@@ -22,6 +23,7 @@ import {
     OAUTH2_SERVER_OPTIONS_TOKEN,
 } from './oauth2-server.constants';
 
+@Global()
 @Module({
     providers: [
         {
