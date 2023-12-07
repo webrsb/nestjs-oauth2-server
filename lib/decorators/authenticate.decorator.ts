@@ -1,8 +1,4 @@
-import {
-    UseGuards,
-    SetMetadata,
-    applyDecorators,
-} from '@nestjs/common';
+import { UseGuards, SetMetadata, applyDecorators } from '@nestjs/common';
 import { AuthenticateOptions } from '@node-oauth/oauth2-server';
 
 import { OAuth2ServerAuthenticationGuard } from '../guards';

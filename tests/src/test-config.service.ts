@@ -7,9 +7,7 @@ import {
 import { TestModelService } from './test-model.service';
 
 @Injectable()
-export class TestConfigService
-    implements IOAuth2ServerOptionsFactory
-{
+export class TestConfigService implements IOAuth2ServerOptionsFactory {
     createOAuth2ServerOptions(): IOAuth2ServerModuleOptions {
         return {
             model: TestModelService,

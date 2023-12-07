@@ -2,7 +2,6 @@ import { Type } from '@nestjs/common';
 import { BaseModel, ServerOptions } from '@node-oauth/oauth2-server';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
 
-
 export interface IOAuth2ServerModuleOptions
     extends Omit<ServerOptions, 'model'>,
         Pick<ModuleMetadata, 'imports'> {
@@ -14,7 +13,7 @@ export interface IOAuth2ServerOptionsFactory {
 }
 
 export interface IOAuth2ServerModuleAsyncOptions
-extends Pick<ModuleMetadata, 'imports'> {
+    extends Pick<ModuleMetadata, 'imports'> {
     model: Type<BaseModel>;
     useClass?: Type<IOAuth2ServerOptionsFactory>;
     useExisting?: Type<IOAuth2ServerOptionsFactory>;

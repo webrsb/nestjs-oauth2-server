@@ -73,9 +73,7 @@ export class TestModelService
             : AUTHORIZATION_CODE;
     }
 
-    async saveAuthorizationCode(): Promise<
-        AuthorizationCode | false
-    > {
+    async saveAuthorizationCode(): Promise<AuthorizationCode | false> {
         return this.testResponses &&
             this.testResponses.authorizationCode !== undefined
             ? this.testResponses.authorizationCode

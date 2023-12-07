@@ -12,7 +12,7 @@ export class TestModule {
             module: TestModule,
             imports: [
                 OAuth2ServerModule.forRoot({
-                    model: TestModelService
+                    model: TestModelService,
                 }),
             ],
         };
@@ -23,8 +23,11 @@ export class TestModule {
             module: TestModule,
             imports: [
                 OAuth2ServerModule.forRootAsync({
-                    useFactory: (): Omit<IOAuth2ServerModuleOptions, 'model'> => ({}),
-                    model: TestModelService
+                    useFactory: (): Omit<
+                        IOAuth2ServerModuleOptions,
+                        'model'
+                    > => ({}),
+                    model: TestModelService,
                 }),
             ],
         };
@@ -36,7 +39,7 @@ export class TestModule {
             imports: [
                 OAuth2ServerModule.forRootAsync({
                     useClass: TestConfigService,
-                    model: TestModelService
+                    model: TestModelService,
                 }),
             ],
         };
@@ -49,7 +52,7 @@ export class TestModule {
                 OAuth2ServerModule.forRootAsync({
                     useExisting: TestConfigService,
                     imports: [ExistingModule],
-                    model: TestModelService
+                    model: TestModelService,
                 }),
             ],
         };

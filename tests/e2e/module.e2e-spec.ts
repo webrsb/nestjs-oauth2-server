@@ -15,9 +15,7 @@ describe('ExampleModule', () => {
         });
 
         it('should be defined', () => {
-            expect(
-                module.get<OAuth2Server>(OAUTH2_SERVER),
-            ).toBeDefined();
+            expect(module.get<OAuth2Server>(OAUTH2_SERVER)).toBeDefined();
         });
     });
 
@@ -25,14 +23,10 @@ describe('ExampleModule', () => {
         describe('useFactory()', () => {
             it('should register module', async () => {
                 module = await Test.createTestingModule({
-                    imports: [
-                        TestModule.withUseFactoryForRootAsync(),
-                    ],
+                    imports: [TestModule.withUseFactoryForRootAsync()],
                 }).compile();
 
-                expect(
-                    module.get<OAuth2Server>(OAUTH2_SERVER),
-                ).toBeDefined();
+                expect(module.get<OAuth2Server>(OAUTH2_SERVER)).toBeDefined();
             });
         });
 
@@ -42,23 +36,17 @@ describe('ExampleModule', () => {
                     imports: [TestModule.withUseClassForRootAsync()],
                 }).compile();
 
-                expect(
-                    module.get<OAuth2Server>(OAUTH2_SERVER),
-                ).toBeDefined();
+                expect(module.get<OAuth2Server>(OAUTH2_SERVER)).toBeDefined();
             });
         });
 
         describe('useExisting()', () => {
             it('should register module', async () => {
                 module = await Test.createTestingModule({
-                    imports: [
-                        TestModule.withUseExistingForRootAsync(),
-                    ],
+                    imports: [TestModule.withUseExistingForRootAsync()],
                 }).compile();
 
-                expect(
-                    module.get<OAuth2Server>(OAUTH2_SERVER),
-                ).toBeDefined();
+                expect(module.get<OAuth2Server>(OAUTH2_SERVER)).toBeDefined();
             });
         });
     });
