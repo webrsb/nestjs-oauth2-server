@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import {
-    IOAuth2ServerModuleOptions,
-    IOAuth2ServerOptionsFactory,
-} from '../../lib';
-import { TestModelService } from './test-model.service';
+import { IOAuth2ServerOptionsFactory } from '../../lib';
 
 @Injectable()
-export class TestConfigService implements IOAuth2ServerOptionsFactory {
-    createOAuth2ServerOptions(): IOAuth2ServerModuleOptions {
-        return {
-            model: TestModelService,
-        };
+export class TestConfigService
+    implements IOAuth2ServerOptionsFactory {
+    createOAuth2ServerOptions() {
+        return {};
     }
 }

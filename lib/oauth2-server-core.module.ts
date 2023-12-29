@@ -1,9 +1,8 @@
 import {
-    Type,
     Module,
     Provider,
     DynamicModule,
-    Global,
+    NotImplementedException,
 } from '@nestjs/common';
 import { ServerOptions } from '@node-oauth/oauth2-server';
 import * as OAuth2Server from '@node-oauth/oauth2-server';
@@ -23,7 +22,6 @@ import {
     OAUTH2_SERVER_OPTIONS_TOKEN,
 } from './oauth2-server.constants';
 
-@Global()
 @Module({
     providers: [
         {
@@ -51,54 +49,45 @@ import {
     exports: [OAUTH2_SERVER],
 })
 export class OAuth2ServerCoreModule {
-    static forRoot(
-        options: IOAuth2ServerModuleOptions
-    ): DynamicModule {
-        const { model, ...otherOptions } = options;
+    static forRoot({
+        modelClass,
+        ...options
+    }: IOAuth2ServerModuleOptions): DynamicModule {
         return {
             module: OAuth2ServerCoreModule,
             imports: options.imports || [],
             providers: [
                 {
                     provide: OAUTH2_SERVER_OPTIONS_TOKEN,
-                    useValue: otherOptions,
+                    useValue: options,
                 },
                 {
                     provide: OAUTH2_SERVER_MODEL_PROVIDER,
-                    useClass: model
+                    useClass: modelClass,
                 },
             ],
         };
     }
 
-    static forRootAsync(
-        options: IOAuth2ServerModuleAsyncOptions,
-    ): DynamicModule {
-        const { model, ...otherOptions } = options;
+    static forRootAsync({
+        modelClass,
+        ...options
+    }: IOAuth2ServerModuleAsyncOptions): DynamicModule {
         return {
             module: OAuth2ServerCoreModule,
-            providers: [...this.createAsyncProviders(otherOptions), {
-                provide: OAUTH2_SERVER_MODEL_PROVIDER,
-                useClass: model
-            }],
             imports: options.imports || [],
+            providers: [
+                this.createAsyncOptionsProvider(options),
+                {
+                    provide: OAUTH2_SERVER_MODEL_PROVIDER,
+                    useClass: modelClass,
+                },
+            ],
         };
     }
 
-    private static createAsyncProviders(
-        options: Omit<IOAuth2ServerModuleAsyncOptions, 'model'>,
-    ): Provider[] {
-        if (options.useFactory || options.useExisting) {
-            return [this.createAsyncOptionsProvider(options)];
-        }
-
-        const useClass = options.useClass as Type<IOAuth2ServerOptionsFactory>;
-
-        return [this.createAsyncOptionsProvider(options), useClass];
-    }
-
     private static createAsyncOptionsProvider(
-        options: Omit<IOAuth2ServerModuleAsyncOptions, 'model'>,
+        options: Omit<IOAuth2ServerModuleAsyncOptions, 'modelClass'>,
     ): Provider {
         if (options.useFactory) {
             return {
@@ -108,11 +97,16 @@ export class OAuth2ServerCoreModule {
             };
         }
 
-        const inject = [
-            (options.useClass ||
-                options.useExisting) as Type<IOAuth2ServerOptionsFactory>,
-        ];
-
+        const inject = [];
+        if (options.useClass) {
+            inject.push(options.useClass);
+        } else if (options.useExisting) {
+            inject.push(options.useExisting);
+        } else {
+            throw new NotImplementedException(
+                'useClass/useExisting is not implemented',
+            );
+        }
         return {
             provide: OAUTH2_SERVER_OPTIONS_TOKEN,
             useFactory: (factory: IOAuth2ServerOptionsFactory) =>

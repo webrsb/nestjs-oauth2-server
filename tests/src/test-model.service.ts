@@ -6,8 +6,11 @@ import {
     RefreshTokenModel,
     AuthorizationCodeModel,
     RequestAuthenticationModel,
+    User,
 } from '@node-oauth/oauth2-server';
-import * as moment from 'moment';
+import moment = require('moment');
+import { Inject, Injectable, Optional } from '@nestjs/common';
+
 import {
     CLIENT,
     ACCESS_TOKEN,
@@ -28,7 +31,7 @@ export class TestModelService
     constructor(
         @Optional()
         @Inject(RESPONSES)
-        readonly testResponses: ITestExpectedResponses,
+        private readonly testResponses: ITestExpectedResponses,
     ) {}
 
     async getAccessToken(): Promise<Token | false> {
@@ -48,8 +51,8 @@ export class TestModelService
 
     async saveToken(
         token: Token,
-        client: any,
-        user: any,
+        client: Client,
+        user: User,
     ): Promise<Token | false> {
         return this.testResponses &&
             this.testResponses.accessToken !== undefined

@@ -12,8 +12,7 @@ import { BaseGuard } from './base.guard';
 @Injectable()
 export class OAuth2ServerAuthorizationGuard
     extends BaseGuard
-    implements CanActivate
-{
+    implements CanActivate {
     protected action(
         request: OAuth2Request,
         response: OAuth2Response,
