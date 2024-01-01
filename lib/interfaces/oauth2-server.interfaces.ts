@@ -1,6 +1,6 @@
 import { Type } from '@nestjs/common';
 import { BaseModel, ServerOptions } from '@node-oauth/oauth2-server';
-import { ModuleMetadata } from '@nestjs/common/interfaces';
+import { Abstract, ModuleMetadata } from '@nestjs/common/interfaces';
 
 export interface IOAuth2ServerModuleOptions
     extends Omit<ServerOptions, 'model'>,
@@ -18,5 +18,8 @@ export interface IOAuth2ServerModuleAsyncOptions
     useClass?: Type<IOAuth2ServerOptionsFactory>;
     useExisting?: Type<IOAuth2ServerOptionsFactory>;
     useFactory?: (...args: any[]) => Omit<IOAuth2ServerModuleOptions, 'model'>;
-    inject?: any[];
+    inject?: Array<
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        Type<any> | string | symbol | Abstract<any> | Function
+    >;
 }
