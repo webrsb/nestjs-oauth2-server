@@ -1,6 +1,5 @@
 import {
     Token,
-    OAuthError,
     TokenOptions,
     AuthorizeOptions,
     AuthorizationCode,
@@ -11,13 +10,12 @@ import {
 import {
     Inject,
     Injectable,
-    HttpException,
     ExecutionContext,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import * as OAuth2Server from '@node-oauth/oauth2-server';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import {
     OAUTH2_SERVER,
@@ -39,7 +37,6 @@ export abstract class BaseGuard {
             new OAuth2Response(this.getResponse<Record<string, any>>(context)),
             this.getOptions(context),
         ).pipe(
-            catchError((error: OAuthError) => this.throwError(error)),
             mergeMap((tokenOrAuthorizationCode: Token | AuthorizationCode) => {
                 this.includeOauthInRequest(request, tokenOrAuthorizationCode);
                 return of(true);
@@ -62,10 +59,6 @@ export abstract class BaseGuard {
             OAUTH2_METHOD_OPTIONS_METADATA,
             context.getHandler(),
         );
-    }
-
-    protected throwError(error: OAuthError): Observable<never> {
-        return throwError(new HttpException(error.message, error.code));
     }
 
     protected abstract action(
