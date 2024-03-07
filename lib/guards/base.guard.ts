@@ -3,7 +3,6 @@ import {
     TokenOptions,
     AuthorizeOptions,
     AuthorizationCode,
-    AuthenticateOptions,
     Request as OAuth2Request,
     Response as OAuth2Response,
 } from '@node-oauth/oauth2-server';
@@ -53,7 +52,7 @@ export abstract class BaseGuard {
     }
 
     private getOptions<
-        T extends TokenOptions | AuthorizeOptions | AuthenticateOptions,
+        T extends TokenOptions | AuthorizeOptions,
     >(context: ExecutionContext): T {
         return this.reflector.get<T, symbol>(
             OAUTH2_METHOD_OPTIONS_METADATA,
