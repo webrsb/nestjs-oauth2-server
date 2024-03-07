@@ -7,11 +7,6 @@ import {
 import { ServerOptions } from '@node-oauth/oauth2-server';
 import * as OAuth2Server from '@node-oauth/oauth2-server';
 import {
-    OAuth2ServerTokenGuard,
-    OAuth2ServerAuthorizationGuard,
-    OAuth2ServerAuthenticationGuard,
-} from './guards';
-import {
     IOAuth2ServerModuleOptions,
     IOAuth2ServerOptionsFactory,
     IOAuth2ServerModuleAsyncOptions,
@@ -42,9 +37,6 @@ import {
                 OAUTH2_SERVER_MODEL_PROVIDER,
             ],
         },
-        OAuth2ServerTokenGuard,
-        OAuth2ServerAuthorizationGuard,
-        OAuth2ServerAuthenticationGuard,
     ],
     exports: [OAUTH2_SERVER],
 })
