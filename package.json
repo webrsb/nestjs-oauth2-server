@@ -1,6 +1,6 @@
 {
   "name": "@webrsb/nestjs-oauth2-server",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A NestJS wrapper for node-oauth/oauth2-server",
   "main": "index.js",
   "types": "index.d.ts",
@@ -77,6 +77,6 @@
   },
   "homepage": "https://github.com/webrsb/nestjs-oauth2-server#readme",
   "publishConfig": {
-    "access": "public"
+    "registry": "https://nexus.athena.com.tw/repository/npm-host/"
   }
 }
